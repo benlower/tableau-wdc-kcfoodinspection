@@ -11,15 +11,11 @@
     <script type="text/javascript" src="/javascripts/foodInspectionWDC.js"></script>
   </head>
   <body>
-    <div class="container">
-      <h1>Welcome to the MS Health Web Data Connector</h1>
-      <p id="signedin">You are signed in</p>
-      <p id="notsignedin">You are not signed in, please click below to authenticate</p>
-      <br />
-      <input id="zipCode" type="text" />Zip code
+    <form id="inputForm" action="">
+      Zipcode: <input type="text" id="zipCode" name="zipCode" style="width: 150px;" />
       <br />
       <br />
-      <button id="getDataButton">get data!</button>
-    </div>
+      <input id="getDataButton" type="submit" value="Get Results">
+    </form>
   </body>
 </html>
