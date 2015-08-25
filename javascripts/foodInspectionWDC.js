@@ -58,10 +58,11 @@
                 };
 
                 toRet.push(row);
-              
-                // Call back to tableau with the table data and the new record number (this is stored as a string)
-                tableau.dataCallback(toRet, toRet.length.toString(), false);
+                
               }
+            
+              // Call back to tableau with the table data and the new record number (this is stored as a string)
+              tableau.dataCallback(toRet, toRet.length.toString(), false);
             }
           }
           );
