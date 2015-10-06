@@ -4,10 +4,6 @@
       // -------------------------------------------------- //
       var myConnector = tableau.makeConnector();
     
-      myConnector.init = function () {
-        tableau.initCallback();
-      };
-    
       // Set-up our column headers so Tableau knows what to expect
       myConnector.getColumnHeaders = function () {
 		  tableau.log('getColumnHeaders...');
