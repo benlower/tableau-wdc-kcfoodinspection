@@ -21,7 +21,7 @@
       // We're going to grab data 5,000 rows at a time
       myConnector.getTableData = function (lastRecordToken) {
         var zipCode = tableau.connectionData;
-        var url = 'https://data.kingcounty.gov/resource/f29f-zza5.json?zip_code=' + zipCode;
+        var url = 'https://data.kingcounty.gov/resource/f29f-zza5.json?zip_code=' + zipCode + '&$limit=' + rowLimit;
         
         // We have a last record (not first run thru)
         if (lastRecordToken) {
@@ -29,6 +29,9 @@
         } else {    // first time thru
           rowOffset = 0;
         }
+        
+        // add our offset
+        url += '&$offset=' + rowOffset;
         
         $.getJSON(
           url,
