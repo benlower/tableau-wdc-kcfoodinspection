@@ -2,6 +2,8 @@
       // -------------------------------------------------- //
       // WDC-specific things
       // -------------------------------------------------- //
+      var rowLimit = 5000;        // we're going to get 5000 rows at a time
+      var rowOffset = 0;
       var myConnector = tableau.makeConnector();
     
       // Set-up our column headers so Tableau knows what to expect
@@ -16,9 +18,17 @@
 
       // Magic time -> call the API to get data, then flatten it in a loop and return to Tableau
       // More information about the King County inspection data can be found at http://kingcounty.gov/healthservices/health/ehs/foodsafety/inspections/system.aspx
-      myConnector.getTableData = function () {
+      // We're going to grab data 5,000 rows at a time
+      myConnector.getTableData = function (lastRecordToken) {
         var zipCode = tableau.connectionData;
         var url = 'https://data.kingcounty.gov/resource/f29f-zza5.json?zip_code=' + zipCode;
+        
+        // We have a last record (not first run thru)
+        if (lastRecordToken) {
+          rowOffset += rowLimit;
+        } else {    // first time thru
+          rowOffset = 0;
+        }
         
         $.getJSON(
           url,
@@ -58,7 +68,9 @@
               }
             
               // Call back to tableau with the table data and the new record number (this is stored as a string)
-              tableau.dataCallback(toRet, toRet.length.toString(), false);
+              var moreData = (data.length === rowLimit) ? true : false;
+              
+              tableau.dataCallback(toRet, toRet.length.toString(), moreData);
             }
             // No data
             else {
